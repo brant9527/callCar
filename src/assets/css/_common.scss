@@ -76,6 +76,7 @@ textarea {
     box-sizing: border-box;
   }
 }
+
 html,
 body {
   height: 100%;
@@ -102,6 +103,7 @@ input,
 textarea {
   border: 0;
   outline: 0;
+  background: transparent;
   &::-webkit-input-placeholder {
     color: #888;
   }
@@ -122,11 +124,11 @@ button {
 }
 a {
   text-decoration: none;
+  color: inherit;
   &:hover {
     color: initial;
   }
 }
-.test{font-size: px(100)}
 @function px($number: 750) {
   @return $number/100+rem;
 }

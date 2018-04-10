@@ -1,0 +1,92 @@
+$background-bg:#ffffff;
+$background-btn:transparent;
+$background-input:#aca8a9;
+$background-border:#B8B7B7;
+$background-font:#3A3939;
+html{
+  font-weight: 400;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+}
+.am-h1{
+  font-size: 0.24rem
+}
+.am-h2{
+  font-size: 0.36rem
+}
+.am-h3{
+  font-size: 0.48rem
+}
+.am-h4{
+  font-size: 0.6rem
+}
+.am-h5{
+  font-size: 0.72rem
+}
+.am-h6{
+  font-size: 0.84rem
+}
+.text-center{
+  text-align: center;
+}
+.am-margin-center{
+  margin:0 auto;
+}
+.am-margin-top-1{
+  margin-top:1rem;
+}
+.am-margin-top-2{
+  margin-top:1.5rem;
+}
+.am-margin-top-3{
+  margin-top:2rem;
+}
+.am-input {
+  width: 6rem;
+  border-bottom: 1px solid $background-border;
+  line-height: 1rem;
+  vertical-align: middle;
+  font-size: 0.4rem;
+  .am-input-icon {
+    position: relative;
+    top: 0.07rem;
+    font-size: 0.6rem;
+    padding: 0 0.1rem;
+  }
+  input {
+    line-height: 1rem;
+    &::placeholder{
+      color: $background-font;
+    }
+  }
+}
+
+.padding-top-1{
+  padding-top: 1rem;
+}
+.padding-top-2{
+  padding-top: 2rem;
+}
+.am-router-text{
+  font-size: 0.5rem;
+  color: #337ab7;
+}
+.am-background{
+ position: absolute;
+  top: 0;
+  left:0;
+  right: 0;
+  bottom: 0;
+  background: $background-bg;
+}
+.am-btn{
+  width: 6rem;
+  border-radius:5px;
+  line-height: 1rem;
+  display: block;
+  font-weight: bold;
+  background: $background-btn;
+  border:2px solid $background-border;
+}
+.am-text-color-darkblu{
+  color: #3e5370;
+}
