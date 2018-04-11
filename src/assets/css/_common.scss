@@ -117,6 +117,23 @@ textarea {
     color: #888;
   }
 }
+select {
+  appearance:none;
+  background: transparent;
+  border: none;
+}
+option{
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari 和 Chrome */
+  appearance:none;
+  border: none;
+  width: 3rem;
+  height: 1rem;
+}
+/* --背景色字体颜色--*/
+option:hover{
+  background:transparent;
+}
 button {
   border: 0;
   outline: 0;

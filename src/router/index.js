@@ -19,12 +19,15 @@ export default new Router({
       component: Main,
       children: [{
         path: '/',
+        name: 'default',
         component: Order
       }, {
         path: 'publish',
+        nam: 'Publish',
         component: Publish
       }, {
         path: 'mine',
+        nam: 'Mine',
         component: Mine
       }]
     }
