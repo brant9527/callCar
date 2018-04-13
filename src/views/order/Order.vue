@@ -1,14 +1,20 @@
 <template>
     <div class="">
       <div>终点</div>
-      <my-select></my-select>
+      <am-select v-model="selectValue"></am-select>
     </div>
 </template>
 
 <script>
-import MySelect from '../../components/MySelect.vue'
+import AmSelect from '../../components/select/AmSelect.vue'
 export default {
-  components: {MySelect}
+  components: {AmSelect},
+  data: () => ({
+    selectValue: {
+      label: '起点',
+      value: ''
+    }
+  })
 }
 </script>
 
