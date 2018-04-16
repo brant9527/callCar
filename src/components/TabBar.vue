@@ -1,12 +1,12 @@
 <template>
     <div class="tabBar">
-      <div class="tabItem" @click="fnorder">
+      <div class="tabItem" v-tap="{methods:fnorder}">
         <a class="iconfont icon-activity tab-icon"></a>
       </div>
-      <div class="tabItem" @click="fnpublish">
+      <div class="tabItem" v-tap="{methods:fnpublish}">
         <a class="iconfont tab-icon icon-add"></a>
       </div>
-      <div class="tabItem" @click="fnmine">
+      <div class="tabItem" v-tap="{methods:fnmine}">
         <a class="iconfont tab-icon icon-homepage"></a>
       </div>
     </div>
@@ -28,7 +28,7 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped="">
+<style lang='scss' scoped>
   .tabBar{
     position: absolute;
     width: 100%;

@@ -4,8 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import vueTap from 'v-tap'
-import './assets/css/_global.scss'
 
+import './assets/css/_global.scss'
+import './assets/css/_common.scss'
 Vue.config.productionTip = false
 Vue.use(vueTap)
 /* eslint-disable no-new */

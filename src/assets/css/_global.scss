@@ -98,16 +98,17 @@ html{
   text-align: center;
   border-radius: 4px;
   border: 1px solid $background-border;
-  position: absolute;
+  position: relative;
   ul {
-    position: relative;
+    position: absolute;
     border-radius: 4px;
     max-height: 0;
+    width: 100%;
     overflow: scroll;
     border: 1px solid $background-border;
     transition: max-height 1s;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-
+    background-color: $background-bg;
     .arrow{
       position: absolute;
       display: block;
@@ -142,7 +143,6 @@ html{
       width: 100%;
       line-height: 1rem;
       text-align: center;
-      padding:  0 0.5rem ;
       position: relative;
       background: white;
       border-bottom: 1px solid $background-border;
@@ -160,12 +160,12 @@ html{
     }
   }
   .item {
-    height: 1rem;
-    width: $selectWidth;
-    line-height: 1rem;
+    height: inherit;
+    width: 100%;
+    line-height: inherit;
     position: relative;
     text-align: center;
-    padding: 0 0.5rem 0 0.2rem;
+
     .icon{
       position: absolute;
       right: 0.1rem;
@@ -180,4 +180,7 @@ html{
   &.active ul{
     max-height: 4rem;
   }
+}
+.am-border-none{
+  border:none;
 }

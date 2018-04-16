@@ -1,6 +1,6 @@
 <template>
     <div class="">
-      <div class="am-select" :class="{active:flag}">
+      <div class="am-select" :class="{active:flag}" v-bind:style="{width:width+'rem',height:height+'rem'}" >
         <div class="item" v-tap="{methods: changeFlag}">{{selectValue.label}}
         <a class="iconfont icon icon-unfold"></a>
         </div>
@@ -17,18 +17,26 @@
 <script>
 export default {
   props: {
-    value: Object
+    value: Object,
+    width: {
+      type: Number,
+      default: 3
+    },
+    height: {
+      type: Number,
+      default: 1
+    },
+    propsList: {
+      type: Array
+    },
+    isBorder: {
+      default: true,
+      type: Boolean
+    }
   },
   data: () => ({
     flag: false,
-    selectValue: {},
-    propsList: [{
-      value: 0,
-      label: '护理'
-    }, {
-      value: 1,
-      label: '金山'
-    }]
+    selectValue: {}
   }),
   methods: {
     change (event) {
@@ -42,8 +50,8 @@ export default {
     changeFlag (event) {
       this.flag = true
     },
-    mounted () {
-      this.selectValue = this.value
+    created () {
+      console.log(this.value)
     }
   }
 }
