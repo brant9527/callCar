@@ -49,9 +49,6 @@ export default {
     },
     changeFlag (event) {
       this.flag = true
-    },
-    created () {
-      console.log(this.value)
     }
   }
 }
