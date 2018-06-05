@@ -50,6 +50,9 @@ export default {
     changeFlag (event) {
       this.flag = true
     }
+  },
+  mounted () {
+    this.selectValue = this.value
   }
 }
 </script>

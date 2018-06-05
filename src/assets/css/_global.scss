@@ -99,6 +99,7 @@ html{
   border-radius: 4px;
   border: 1px solid $background-border;
   position: relative;
+  z-index: 100;
   ul {
     position: absolute;
     border-radius: 4px;
