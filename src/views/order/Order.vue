@@ -5,7 +5,7 @@
         <am-select class="select-out" v-model="selectEnd"  :isBorder="false" :propsList="propsList"></am-select>
       </div>
       <am-iscroll :iscrollClass="iscrollClass">
-        <cardInfoItem v-for="item in cardList" :key="item.id" :name="item.name" :time="item.time" :start="item.start" :end="item.end" :money="item.money" :headurl="item.headurl"></cardInfoItem>
+        <cardInfoItem v-for="item in cardList" :key="item.id" :name="item.name" :creatTime="item.creatTime" :startAddress="item.startAddress" :endAddress="item.endAddress" :pickerVisible="item.pickerVisible" :headurl="item.headurl" :roleValue="item.roleValue" :contact="item.contact"></cardInfoItem>
       </am-iscroll>
     </div>
 </template>
@@ -33,54 +33,30 @@ export default {
       value: 1,
       label: '金山'
     }],
-    cardList: [{
-      name: '我',
-      time: '9:00',
-      start: '金山',
-      end: 'guanyinshan',
-      money: '10',
-      headurl: ''
-    }, {
-      name: '我',
-      time: '9:00',
-      start: '金山',
-      end: 'guanyinshan',
-      money: '10',
-      headurl: ''
-    }, {
-      name: '我',
-      time: '9:00',
-      start: '金山',
-      end: 'guanyinshan',
-      money: '10',
-      headurl: ''
-    }, {
-      name: '我',
-      time: '9:00',
-      start: '金山',
-      end: 'guanyinshan',
-      money: '10',
-      headurl: ''
-    }, {
-      name: '我',
-      time: '9:00',
-      start: '金山',
-      end: 'guanyinshan',
-      money: '10',
-      headurl: ''
-    }, {
-      name: '我',
-      time: '9:00',
-      start: '金山',
-      end: 'guanyinshan',
-      money: '10',
-      headurl: ''
-    }],
+    cardList: [],
     iscrollClass: {
       top: 2,
       bottom: 0
-    }
+    },
+    now: 0,
+    currentIndex: 0
   }),
+  methods: {
+    getinfo () {
+      this.$axios.get('/car/gettrip', {params: {
+        now: this.now,
+        currentIndex: this.currentIndex
+      }}).then(res => {
+        if (res.data && res.data) {
+          this.cardList.unshift(...res.data)
+        }
+      })
+    }
+  },
+  created () {
+    this.now = new Date().getTime()
+    this.getinfo()
+  },
   watch: {
     'selectStart': function (value) {
     }

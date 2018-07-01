@@ -2,8 +2,8 @@
     <div class="item">
       <div class="head"></div>
       <div class="info">
-        <div class="money">{{money+ '元'}}</div>
-        <div class="time">{{time+ ' '+start + ' - '+ end}}</div>
+        <!-- <div class="money">{{money+ '元'}}</div> -->
+        <div class="time">{{pickerVisible+ ' '+startAddress + ' - '+ endAddress}}</div>
         <a class="arrow iconfont icon-return"></a>
       </div>
 
@@ -13,12 +13,16 @@
 <script>
 export default {
   props: {
-    start: '',
-    end: '',
-    time: '',
+    startAddress: '',
+    endAddress: '',
+    creatTime: '',
+    pickerVisible: '',
     money: '',
     headurl: '',
-    name: ''
+    name: '',
+    contact: '',
+    roleValue: '',
+    introduction: ''
   },
   data: () => ({
   })

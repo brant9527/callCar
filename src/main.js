@@ -9,13 +9,14 @@ import Iscorll from './components/scroller/index'
 // import { Field, DatetimePicker} from 'minu-ui'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
-
+import axios from './axios'
 import './assets/css/_global.scss'
 import './assets/css/_common.scss'
 Vue.config.productionTip = false
 Vue.use(vueTap)
 Vue.use(Iscorll)
 Vue.use(MintUI)
+Vue.prototype.$axios = axios
 // Vue.component(Field.name, Field)
 // Vue.component(DatetimePicker.name, DatetimePicker)
 /* eslint-disable no-new */

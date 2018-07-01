@@ -5,6 +5,8 @@ import Main from '@/views/main/Main'
 import Order from '@/views/order/Order'
 import Publish from '@/views/publish/Publish'
 import Mine from '@/views/mine/Mine'
+import Resign from '@/views/resign/main'
+
 Vue.use(Router)
 
 export default new Router({
@@ -23,13 +25,17 @@ export default new Router({
         component: Order
       }, {
         path: 'publish',
-        nam: 'Publish',
+        name: 'Publish',
         component: Publish
       }, {
         path: 'mine',
-        nam: 'Mine',
+        name: 'Mine',
         component: Mine
       }]
+    }, {
+      path: '/resign',
+      name: 'Resign',
+      component: Resign
     }
   ]
 })

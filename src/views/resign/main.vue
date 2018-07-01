@@ -1,25 +1,25 @@
 <template>
-  <div class="am-background">
+    <div class="am-background">
     <div>
-      <div class="am-h3 text-center login-tietle">滴约车</div>
+      <div class="am-h3 text-center login-tietle">滴约车-注册</div>
       <div class="am-input am-margin-center">
-        <div class="input_tip_text" :class="{active:focus_num}">请输入您的手机号码</div>
+        <div class="input_tip_text" :class="{active:focus_num}">请输入注册的手机号码</div>
         <a class="am-input-icon iconfont icon-mobilephone_fill"></a>
         <input   placeholder="" @focus="numFocus" @focusout="numFocusOut" v-model="input_num"/>
       </div>
       <div class="am-input am-margin-center am-margin-top-1">
-        <div class="input_tip_text" :class="{active:focus_psw}">请输入您的密码</div>
+        <div class="input_tip_text" :class="{active:focus_psw}">请输入初始密码</div>
         <a class="am-input-icon iconfont icon-icon-"></a>
         <input   placeholder="" @focus="pswFocus" @focusout="pswFocusOut" v-model="input_psw"/>
       </div>
-      <div class="router-text">没有账号？<router-link class="am-router-text" to="/resign">注册</router-link></div>
-      <div class="am-margin-top-3"><button class="am-btn am-margin-center" @click="login">登陆</button></div>
+      <div class="router-text">已有账号？<router-link class="am-router-text" to="/">登陆</router-link></div>
+      <div class="am-margin-top-3"><button class="am-btn am-margin-center" @click="resign">注册</button></div>
     </div>
   </div>
 </template>
 
 <script>
-import {MessageBox} from 'mint-ui'
+import { MessageBox } from 'mint-ui'
 export default {
   data: () => ({
     input_num: '',
@@ -28,21 +28,29 @@ export default {
     focus_psw: false
   }),
   methods: {
-    login () {
+    resign () {
       if (!this.input_num.match(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/)) {
         return MessageBox.alert('手机格式错误')
       }
       if (!this.input_psw || this.input_psw.length < 6 || this.input_psw.length > 12) {
         return MessageBox.alert('密码格式错误，请输入长度6-12位')
       }
-      this.$axios.post('/login', {num: this.input_num, psw: this.input_psw}).then(res => {
+      let form = {
+        num: this.input_num,
+        psw: this.input_psw
+      }
+      this.$axios.post('/resign', form).then(res => {
         if (res.data.result) {
-          window.localStorage.setItem('accountId', res.data.accountId)
-          this.$router.push({path: '/main'})
+          MessageBox.alert('注册成功').then(action => {
+            if (res.data.result) this.login()
+          })
         } else {
-          return MessageBox.alert('登陆失败')
+          MessageBox.alert('注册失败')
         }
       })
+    },
+    login () {
+      this.$router.push({path: '/'})
     },
     numFocus () {
       if (this.input_num === '') this.focus_num = true
@@ -56,20 +64,12 @@ export default {
     pswFocusOut () {
       if (this.input_psw === '') this.focus_psw = false
     }
-  },
-  created () {
-    let accountId = window.localStorage.getItem('accountId')
-    this.$axios.get('isLogin', {params: {accountId: accountId}}).then(res => {
-      if (res.data.result) {
-        this.$router.push('/main')
-      }
-    })
   }
 }
 </script>
 
 <style lang='scss'>
-  .input_tip_text{
+.input_tip_text{
     pointer-events: none;
     margin-top: 0.3rem;
     &.active{
