@@ -40,6 +40,7 @@ export default {
       console.log(value)
     },
     commit () {
+      let accountId = window.localStorage.getItem('accountId')
       let form = {
         startAddress: this.startAddress,
         endAddress: this.endAddress,
@@ -47,7 +48,8 @@ export default {
         contact: this.contact,
         roleValue: this.roleValue,
         introduction: this.introduction,
-        creatTime: new Date().getTime()
+        creatTime: new Date().getTime(),
+        accountId: accountId
       }
 
       this.$axios.post('/car/settrip', form).then(res => {
