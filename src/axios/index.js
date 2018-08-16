@@ -1,8 +1,16 @@
 import axios from 'axios'
 // import message from 'mint-ui'
 // import api from './api'
+let path = ''
+console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV === 'production') {
+  path = 'http://www.meneifrau.com'
+} else {
+  path = 'http://192.168.1.104'
+}
+
 let options = axios.create({
-  baseURL: 'http://192.168.1.104',
+  baseURL: path,
   headers: {
     'Content-Type': 'application/json'
     // 'Access-Control-Allow-Origin': '*'

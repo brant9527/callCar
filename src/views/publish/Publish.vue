@@ -4,7 +4,7 @@
         <mt-field label="终点" placeholder="请输入终点" v-model="endAddress"></mt-field>
         <mt-field label="联系方式" placeholder="手机号或微信号" v-model="contact"></mt-field>
         <mt-radio title="您是？" v-model="roleValue" :options=options> </mt-radio>
-        <mt-cell title="出发时间"><div class="timeSlect" @click="openPicker">{{pickerVisible}}</div></mt-cell>
+        <mt-cell title="上班时间"><div class="timeSlect" @click="openPicker">{{pickerVisible}}</div></mt-cell>
         <mt-datetime-picker v-model="pickerVisible"  ref="picker" type="time" @confirm="handleConfirm"></mt-datetime-picker>
         <mt-field label="备注" placeholder="请输入备注内容" type="textarea" rows="4" v-model="introduction"></mt-field>
         <div class="commit"><mt-button type="default" size="large" @click="commit">{{isPulishNew?'提交信息':'修改信息'}}</mt-button></div>
@@ -44,11 +44,27 @@ export default {
     },
     commit () {
       let accountId = window.localStorage.getItem('accountId')
+      if (!this.startAddress) {
+        MessageBox.alert('请输入起点')
+        return false
+      } else if (!this.endAddress) {
+        MessageBox.alert('请输入终点')
+        return false
+      } else if (!this.contact) {
+        MessageBox.alert('请输入联系方式')
+        return false
+      } else if (!this.roleValue) {
+        MessageBox.alert('请选择角色')
+        return false
+      } else if (!this.pickerVisible) {
+        MessageBox.alert('请选择到达时间')
+        return false
+      }
       let form = {
-        startAddress: this.startAddress,
-        endAddress: this.endAddress,
+        startAddress: this.fnFilter(this.startAddress),
+        endAddress: this.fnFilter(this.endAddress),
         pickerVisible: this.pickerVisible,
-        contact: this.contact,
+        contact: this.fnFilter(this.contact),
         roleValue: Number(this.roleValue),
         introduction: this.introduction,
         creatTime: new Date().getTime(),
@@ -69,6 +85,10 @@ export default {
       }).catch(() => {
         MessageBox.alert('提交信息失败')
       })
+    },
+    fnFilter (str) {
+      let checkNick = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\]\".<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_]")
+      return str.replace(checkNick, '')
     }
   },
   created () {
