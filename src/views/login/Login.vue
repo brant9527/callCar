@@ -42,6 +42,8 @@ export default {
         } else {
           return MessageBox.alert('登陆失败')
         }
+      }).catch(err => {
+        MessageBox.alert(err.response.data.message)
       })
     },
     numFocus () {
@@ -62,6 +64,8 @@ export default {
     this.$axios.get('isLogin', {params: {accountId: accountId}}).then(res => {
       if (res.data.result) {
         this.$router.push('/main')
+      } else {
+        this.$router.push('/')
       }
     })
   }

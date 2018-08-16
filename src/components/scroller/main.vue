@@ -8,6 +8,7 @@
 
 <script>
 import Iscroll from 'iscroll'
+let oIscroll = {}
 export default {
   name: 'amIscroll',
   props: {
@@ -18,8 +19,11 @@ export default {
         mouseWheel: true,
         interactiveScrollbars: true,
         shrinkScrollbars: 'scale',
-        fadeScrollbars: false
+        fadeScrollbars: false,
+        click: true,
+        tap: true
       })
+
     },
     iscrollClass: {
       type: Object,
@@ -37,10 +41,10 @@ export default {
     }
   },
   mounted () {
-    this.iscroll = new Iscroll(this.$el, this.config)
+    oIscroll = new Iscroll(this.$el, this.config)
   },
   destroyed () {
-    this.iscroll.destroy()
+    oIscroll.destroy()
   }
 }
 </script>

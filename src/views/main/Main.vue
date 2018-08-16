@@ -12,6 +12,20 @@ import tabBar from '../../components/TabBar.vue'
 export default {
   components: {
     tabBar
+  },
+  created () {
+    let accountId = window.localStorage.getItem('accountId')
+    if (accountId) {
+      this.$axios.get('isLogin', {params: {accountId: accountId}}).then(res => {
+        if (res.data.result) {
+          this.$router.push('/main')
+        } else {
+          this.$router.push('/')
+        }
+      })
+    } else {
+      this.$router.push('/')
+    }
   }
 
 }

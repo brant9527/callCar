@@ -1,17 +1,26 @@
 <template>
-    <am-iscroll :iscrollClass="iscrollClass">
-        <cardInfoItem v-for="item in myOrder" :key="item.id" :name="item.name" :creatTime="item.creatTime" :startAddress="item.startAddress" :endAddress="item.endAddress" :pickerVisible="item.pickerVisible" :headurl="item.headurl" :roleValue="item.roleValue" :contact="item.contact"></cardInfoItem>
-    </am-iscroll>
+    <!-- <am-iscroll :iscrollClass="iscrollClass">
+        <cardInfoItem v-for="(item,index) in myOrder" :index="index"   :isClose="true" :key="item.id" :oItem='item' @deleteItem="deleteItem"></cardInfoItem>
+    </am-iscroll> -->
+    <ul class="mint-iscroll"
+        infinite-scroll-disabled="loading"
+        infinite-scroll-distance="10">
+        <li v-for="(item,index) in myOrder" :key="item.id">
+            <cardInfoItem  :index="index"   :isClose="true" :key="item.id" :oItem='item' :type="2"></cardInfoItem>
+
+        </li>
+      </ul>
 </template>
 
 <script>
+import {MessageBox} from 'mint-ui'
 import cardInfoItem from '../../components/carInfoItem/Main.vue'
 export default {
   components: {cardInfoItem},
   data: () => ({
     myOrder: [],
     iscrollClass: {
-      top: 1,
+      top: 0,
       bottom: 0
     }
   }),
@@ -22,7 +31,12 @@ export default {
         res.data.carList.forEach(item => {
           this.myOrder.push(item)
         })
+      }).catch(err => {
+        MessageBox(err.response.data.message)
       })
+    },
+    deleteItem (index) {
+      this.myOrder.splice(index, 1)
     }
   },
   created () {
@@ -32,4 +46,12 @@ export default {
 </script>
 
 <style lang='scss'>
+.mint-iscroll{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    overflow: scroll;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
 </style>

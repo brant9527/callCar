@@ -2,12 +2,15 @@
     <div class="tabBar">
       <div class="tabItem" v-tap="{methods:fnorder}">
         <a class="iconfont icon-activity tab-icon"></a>
+        <div>行程</div>
       </div>
       <div class="tabItem" v-tap="{methods:fnpublish}">
         <a class="iconfont tab-icon icon-add"></a>
+        <div>发布</div>
       </div>
       <div class="tabItem" v-tap="{methods:fnmine}">
         <a class="iconfont tab-icon icon-homepage"></a>
+        <div>我的</div>
       </div>
     </div>
 </template>
@@ -37,12 +40,12 @@ export default {
     border-top:1px solid #B8B7B7;
     display: flex;
     .tabItem{
-      width: 33%;
+      width: 33.3%;
       text-align: center;
       .tab-icon{
         font-size: 0.8rem;
-        line-height: 1.5rem;
-        margin:0 auto;
+        // line-height: 1.5rem;
+        margin:3px auto 0;
       }
     }
   }

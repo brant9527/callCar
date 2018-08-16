@@ -7,12 +7,13 @@
         <mt-cell title="出发时间"><div class="timeSlect" @click="openPicker">{{pickerVisible}}</div></mt-cell>
         <mt-datetime-picker v-model="pickerVisible"  ref="picker" type="time" @confirm="handleConfirm"></mt-datetime-picker>
         <mt-field label="备注" placeholder="请输入备注内容" type="textarea" rows="4" v-model="introduction"></mt-field>
-        <div class="commit"><mt-button type="default" size="large" @click="commit">提交信息</mt-button></div>
+        <div class="commit"><mt-button type="default" size="large" @click="commit">{{isPulishNew?'提交信息':'修改信息'}}</mt-button></div>
 
     </div>
 </template>
 
 <script>
+import { MessageBox } from 'mint-ui'
 export default {
   data: () => ({
     startAddress: '',
@@ -30,7 +31,9 @@ export default {
         value: '2'
       }
     ],
-    introduction: ''
+    introduction: '',
+    isPulishNew: true,
+    _id: ''
   }),
   methods: {
     openPicker () {
@@ -46,17 +49,43 @@ export default {
         endAddress: this.endAddress,
         pickerVisible: this.pickerVisible,
         contact: this.contact,
-        roleValue: this.roleValue,
+        roleValue: Number(this.roleValue),
         introduction: this.introduction,
         creatTime: new Date().getTime(),
         accountId: accountId
       }
-
-      this.$axios.post('/car/settrip', form).then(res => {
+      if (!this.isPulishNew) {
+        form._id = this._id
+      }
+      this.$axios.post(this.isPulishNew ? '/car/settrip' : '/car/updatetrip', form).then(res => {
         if (res.data && res.data.result) {
-          console.log('成功')
+          if (this.isPulishNew) {
+            MessageBox.alert('提交成功')
+          } else {
+            MessageBox.alert('修改成功')
+          }
+          this.$router.push('/main')
         }
+      }).catch(() => {
+        MessageBox.alert('提交信息失败')
       })
+    }
+  },
+  created () {
+    if (this.$route.query && this.$route.query.data) {
+      this.isPulishNew = false
+
+      let oDetail = JSON.parse(this.$route.query.data)
+      console.log(oDetail)
+      if (oDetail) {
+        this.startAddress = oDetail.startAddress
+        this.endAddress = oDetail.endAddress
+        this.pickerVisible = oDetail.pickerVisible
+        this.contact = oDetail.contact
+        this.roleValue = oDetail.roleValue + ''
+        this.introduction = oDetail.introduction
+        this._id = oDetail._id
+      }
     }
   }
 }

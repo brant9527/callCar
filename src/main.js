@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import vueTap from 'v-tap'
-import Iscorll from './components/scroller/index'
+// import Iscorll from './components/scroller/index'
 
 // import { Field, DatetimePicker} from 'minu-ui'
 import MintUI from 'mint-ui'
@@ -13,8 +13,9 @@ import axios from './axios'
 import './assets/css/_global.scss'
 import './assets/css/_common.scss'
 Vue.config.productionTip = false
+
 Vue.use(vueTap)
-Vue.use(Iscorll)
+// Vue.use(Iscorll)
 Vue.use(MintUI)
 Vue.prototype.$axios = axios
 // Vue.component(Field.name, Field)

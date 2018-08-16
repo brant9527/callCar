@@ -1,31 +1,46 @@
 <template>
     <div class="">
       <div class="topTab">
-        <am-select class="select-out" v-model="selectStart"  :isBorder="false" :propsList="propsList"></am-select>
-        <am-select class="select-out" v-model="selectEnd"  :isBorder="false" :propsList="propsList"></am-select>
+        <!-- <am-select class="select-out" v-model="selectStart"  :isBorder="false" :propsList="propsList"></am-select>
+        <am-select class="select-out" v-model="selectEnd"  :isBorder="false" :propsList="propsList"></am-select> -->
+      <Search :itemName='selectStartLabel' v-model="selectStart"></Search>
+      <Search :itemName='selectEndLabel' v-model="selectEnd"></Search>
+      <div class="btnSearch" @click="getInfoByCondition(true)">搜索</div>
       </div>
-      <am-iscroll :iscrollClass="iscrollClass">
-        <cardInfoItem v-for="item in cardList" :key="item.id" :name="item.name" :creatTime="item.creatTime" :startAddress="item.startAddress" :endAddress="item.endAddress" :pickerVisible="item.pickerVisible" :headurl="item.headurl" :roleValue="item.roleValue" :contact="item.contact"></cardInfoItem>
-      </am-iscroll>
+      <!-- <am-iscroll :iscrollClass="iscrollClass">
+        <cardInfoItem v-for="(item,index) in cardList" :index="index" :key="item.id" :id="item.accountId"  :oItem="item" @click="detail(item)"></cardInfoItem>
+      </am-iscroll> -->
+      <div class="mint-iscroll">
+      <ul
+        v-infinite-scroll="loadMore"
+        infinite-scroll-disabled="loading"
+        infinite-scroll-distance="10">
+          <li v-for="(item,index) in cardList" :key="item.id">
+            <cardInfoItem  :index="index" :key="item.id" :id="item.accountId"  :oItem="item" :type="1" ></cardInfoItem>
+          </li>
+      </ul>
+       <p class="page-infinite-loading" style="display: none;"><span><div class="mint-spinner-fading-circle circle-color-5" style="width: 28px; height: 28px;"><div class="mint-spinner-fading-circle-circle is-circle2"></div><div class="mint-spinner-fading-circle-circle is-circle3"></div><div class="mint-spinner-fading-circle-circle is-circle4"></div><div class="mint-spinner-fading-circle-circle is-circle5"></div><div class="mint-spinner-fading-circle-circle is-circle6"></div><div class="mint-spinner-fading-circle-circle is-circle7"></div><div class="mint-spinner-fading-circle-circle is-circle8"></div><div class="mint-spinner-fading-circle-circle is-circle9"></div><div class="mint-spinner-fading-circle-circle is-circle10"></div><div class="mint-spinner-fading-circle-circle is-circle11"></div><div class="mint-spinner-fading-circle-circle is-circle12"></div><div class="mint-spinner-fading-circle-circle is-circle13"></div></div></span>
+          加载中...
+        </p>
+      </div>
     </div>
 </template>
 
 <script>
 import AmSelect from '../../components/select/AmSelect.vue'
+import Search from '../../components/search/Main'
 import cardInfoItem from '../../components/carInfoItem/Main.vue'
+import { Indicator } from 'mint-ui'
 export default {
   components: {
     AmSelect,
-    cardInfoItem},
+    cardInfoItem,
+    Search},
   data: () => ({
-    selectStart: {
-      label: '选择起点',
-      value: '-1'
-    },
-    selectEnd: {
-      label: '选择终点',
-      value: '-1'
-    },
+    selectStart: '',
+    selectEnd: '',
+    selectStartLabel: '1',
+    selectEndLabel: '2',
     propsList: [{
       value: 0,
       label: '湖里'
@@ -39,26 +54,48 @@ export default {
       bottom: 0
     },
     now: 0,
-    currentIndex: 0
+    currentIndex: 0,
+    request: true
   }),
   methods: {
-    getinfo () {
-      this.$axios.get('/car/gettrip', {params: {
-        now: this.now,
-        currentIndex: this.currentIndex
-      }}).then(res => {
-        if (res.data && res.data) {
-          this.cardList.unshift(...res.data)
-        }
-      })
+    getinfo (f) {
+      if (this.request || f) {
+        Indicator.open({
+          text: 'Loading...',
+          spinnerType: 'fading-circle'
+        })
+        this.$axios.get('/car/gettrip', {params: {
+          now: this.now,
+          currentIndex: this.currentIndex++,
+          startAddress: this.selectStart,
+          endAddress: this.selectEnd
+        }}).then(res => {
+          Indicator.close()
+          if (res.data && res.data.result && res.data.data) {
+            if (f) {
+              this.cardList.splice(0, this.cardList.length)
+            }
+            this.cardList.push(...res.data.data)
+          } else if (res.data.result === false) {
+            this.request = false
+          }
+        })
+      }
+    },
+    getInfoByCondition (f) {
+      this.currentIndex = 0
+      this.getinfo(f)
+    },
+    loadMore () {
+      this.getinfo()
     }
   },
   created () {
     this.now = new Date().getTime()
-    this.getinfo()
   },
   watch: {
     'selectStart': function (value) {
+      console.log(value)
     }
   }
 }
@@ -71,9 +108,30 @@ export default {
     margin: 0.2rem;
   }
   .topTab{
+    position: absolute;
     height: 2rem;
     width: 100%;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     border: 1px solid #dcdfe6;
+    z-index: 10;
+  }
+  .mint-iscroll{
+    position: absolute;
+    top: 2rem;
+    bottom: 0;
+    overflow: scroll;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+  .btnSearch{
+    border: 1px solid #666666;
+    position: absolute;
+    width: 2rem;
+    text-align: center;
+    line-height: 0.7rem;
+    font-size: 0.35rem;
+    top: 0.6rem;
+    right: 0.2rem;
+    border-radius: 5px;
   }
 </style>
