@@ -1,7 +1,7 @@
 <template>
   <div class="am-background">
     <div>
-      <div class="am-h3 text-center login-tietle">滴约车</div>
+      <div class="am-h3 text-center login-tietle">滴班车</div>
       <div class="am-input am-margin-center">
         <div class="input_tip_text" :class="{active:focus_num}">请输入您的手机号码</div>
         <a class="am-input-icon iconfont icon-mobilephone_fill"></a>
@@ -10,7 +10,7 @@
       <div class="am-input am-margin-center am-margin-top-1">
         <div class="input_tip_text" :class="{active:focus_psw}">请输入您的密码</div>
         <a class="am-input-icon iconfont icon-icon-"></a>
-        <input   placeholder="" @focus="pswFocus" @focusout="pswFocusOut" v-model="input_psw"/>
+        <input type="password"  placeholder="" @focus="pswFocus" @focusout="pswFocusOut" v-model="input_psw"/>
       </div>
       <div class="router-text">没有账号？<router-link class="am-router-text" to="/resign">注册</router-link></div>
       <div class="am-margin-top-3"><button class="am-btn am-margin-center" @click="login">登陆</button></div>

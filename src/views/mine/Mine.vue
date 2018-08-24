@@ -6,7 +6,7 @@
         infinite-scroll-disabled="loading"
         infinite-scroll-distance="10">
         <li v-for="(item,index) in myOrder" :key="item.id">
-            <cardInfoItem  :index="index"   :isClose="true" :key="item.id" :oItem='item' :type="2"></cardInfoItem>
+            <cardInfoItem  :index="index"   :isClose="true" :key="item.id" :oItem='item' :type="2" @deleteItem="deleteItem"></cardInfoItem>
 
         </li>
       </ul>
@@ -36,6 +36,7 @@ export default {
       })
     },
     deleteItem (index) {
+      console.log(index)
       this.myOrder.splice(index, 1)
     }
   },

@@ -12,6 +12,10 @@
         <a class="iconfont tab-icon icon-homepage"></a>
         <div>我的</div>
       </div>
+      <div class="tabItem" v-tap="{methods:fnjoin}">
+        <a class="iconfont tab-icon  icon-coordinates"></a>
+        <div>加入社区</div>
+      </div>
     </div>
 </template>
 
@@ -26,6 +30,9 @@ export default {
     },
     fnmine () {
       this.$router.push({path: '/main/mine'})
+    },
+    fnjoin () {
+      this.$router.push({path: '/main/join'})
     }
   }
 }

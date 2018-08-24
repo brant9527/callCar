@@ -7,6 +7,7 @@ import Publish from '@/views/publish/Publish'
 import Mine from '@/views/mine/Mine'
 import Resign from '@/views/resign/main'
 import CarInfoAlert from '@/views/CarInfoAlert/Main'
+import Join from '@/views/join/Main'
 Vue.use(Router)
 
 export default new Router({
@@ -35,6 +36,10 @@ export default new Router({
         path: 'carInfoAlert',
         name: 'carInfoAlert',
         component: CarInfoAlert
+      }, {
+        path: 'join',
+        name: 'join',
+        component: Join
       }]
     }, {
       path: '/resign',

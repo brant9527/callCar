@@ -37,7 +37,6 @@ export default {
           id: this.oItem._id
         }
         let that = this
-        that.$emit('deleteItem', that.index)
         this.$axios.post('deleteTrip', parmas).then(res => {
           if (res.data.result) {
             that.$emit('deleteItem', that.index)

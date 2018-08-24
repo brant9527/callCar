@@ -5,7 +5,7 @@
         <div class="inputOut">
           <input type="text" name="" :placeholder="itemName==='1'?'选择起点':'选择终点'" v-model="inputValue" @focus="focus" @focusout="focusout">
           <ul class="pulldom" v-if="isShow">
-            <li v-for="item in list" :key="item.key" @click="select(item)">{{item}}</li>
+            <li v-for="item in list" :key="item.id" @click="select(item)">{{item}}</li>
           </ul>
         </div>
     </div>
@@ -78,8 +78,9 @@ export default {
 <style lang="scss" scoped>
 .item{
   padding:  0rem 0.5rem;
-  width: 80%;
+  width: 60%;
   position: relative;
+  left: 20%;
   .inputOut{
     font-size: 0.35rem;
     width: 100%;

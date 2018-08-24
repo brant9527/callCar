@@ -6,6 +6,7 @@
       <Search :itemName='selectStartLabel' v-model="selectStart"></Search>
       <Search :itemName='selectEndLabel' v-model="selectEnd"></Search>
       <div class="btnSearch" @click="getInfoByCondition(true)">搜索</div>
+      <mt-switch class="switch" v-model="radioValue">{{radioValue?'有车':'无车'}}</mt-switch>
       </div>
       <!-- <am-iscroll :iscrollClass="iscrollClass">
         <cardInfoItem v-for="(item,index) in cardList" :index="index" :key="item.id" :id="item.accountId"  :oItem="item" @click="detail(item)"></cardInfoItem>
@@ -55,7 +56,8 @@ export default {
     },
     now: 0,
     currentIndex: 0,
-    request: true
+    request: true,
+    radioValue: true
   }),
   methods: {
     getinfo (f) {
@@ -64,12 +66,18 @@ export default {
           text: 'Loading...',
           spinnerType: 'fading-circle'
         })
-        this.$axios.get('/car/gettrip', {params: {
+        let params = {
           now: this.now,
           currentIndex: this.currentIndex++,
           startAddress: this.selectStart,
           endAddress: this.selectEnd
-        }}).then(res => {
+        }
+        if (this.radioValue) {
+          params.roleValue = 1
+        } else {
+          params.roleValue = 2
+        }
+        this.$axios.get('/car/gettrip', {params: params}).then(res => {
           Indicator.close()
           if (res.data && res.data.result && res.data.data) {
             if (f) {
@@ -112,7 +120,7 @@ export default {
     height: 2rem;
     width: 100%;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    border: 1px solid #dcdfe6;
+    // border: 1px solid #dcdfe6;
     z-index: 10;
   }
   .mint-iscroll{
@@ -126,12 +134,17 @@ export default {
   .btnSearch{
     border: 1px solid #666666;
     position: absolute;
-    width: 2rem;
+    width: 1.8rem;
     text-align: center;
     line-height: 0.7rem;
     font-size: 0.35rem;
     top: 0.6rem;
     right: 0.2rem;
     border-radius: 5px;
+  }
+  .switch{
+    position: absolute;
+    top: 0.5rem;
+    left: 0.2rem;
   }
 </style>
