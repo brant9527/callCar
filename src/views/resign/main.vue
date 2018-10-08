@@ -69,17 +69,7 @@ export default {
 </script>
 
 <style lang='scss'>
-.input_tip_text{
-    pointer-events: none;
-    margin-top: 0.3rem;
-    &.active{
-      transform: translate(0,0) scale(0.9);
-    }
-    transform: translate(1rem,1rem);
-    transition: transform 0.5s;
-    font-size: 0.5rem;
-    transform-origin: left bottom;
-  }
+
   .login-tietle{
     margin: 3rem auto 1rem
   }

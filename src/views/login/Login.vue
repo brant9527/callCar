@@ -74,8 +74,9 @@ export default {
 
 <style lang='scss'>
   .input_tip_text{
+    position: absolute;
+    top: -0.8rem;
     pointer-events: none;
-    margin-top: 0.3rem;
     &.active{
       transform: translate(0,0) scale(0.9);
     }

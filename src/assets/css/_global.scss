@@ -5,7 +5,6 @@ $background-border:#dcdfe6;
 $background-font:#3A3939;
 $selectWidth:3rem;
 html{
-  font-weight: 400;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
 }
 .am-h1{
@@ -42,25 +41,38 @@ html{
   margin-top:2rem;
 }
 .am-input {
+  position: relative;
   width: 6rem;
   border-bottom: 1px solid $background-border;
-  line-height: 1rem;
+
   vertical-align: middle;
   font-size: 0.4rem;
   .am-input-icon {
-    position: relative;
-    top: 0.07rem;
+    position: absolute;
+    top: 0.2rem;
     font-size: 0.6rem;
     padding: 0 0.1rem;
   }
   input {
     line-height: 1rem;
+    padding-left: 50px;
     &::placeholder{
       color: $background-font;
     }
   }
 }
-
+.input_tip_text{
+  position: absolute;
+  top: -0.8rem;
+  pointer-events: none;
+  &.active{
+    transform: translate(0,0) scale(0.9);
+  }
+  transform: translate(1rem,1rem);
+  transition: transform 0.5s;
+  font-size: 0.5rem;
+  transform-origin: left bottom;
+}
 .padding-top-1{
   padding-top: 1rem;
 }
